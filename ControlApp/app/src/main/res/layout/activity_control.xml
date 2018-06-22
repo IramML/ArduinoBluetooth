@@ -36,11 +36,11 @@
         android:layout_height="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="68dp"
         android:src="@drawable/up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnBuzzer" />
+        app:layout_constraintTop_toBottomOf="@+id/ibBuzzer" />
 
     <ImageButton
         android:id="@+id/ibDown"
@@ -48,11 +48,13 @@
         android:layout_height="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/down"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibRight" />
+        app:layout_constraintTop_toBottomOf="@+id/ibRight"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageButton
         android:id="@+id/ibRight"
@@ -60,10 +62,10 @@
         android:layout_height="80dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/right"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.777"
+        app:layout_constraintHorizontal_bias="0.753"
         app:layout_constraintStart_toEndOf="@+id/ibLeft"
         app:layout_constraintTop_toBottomOf="@+id/ibUp" />
 
@@ -71,51 +73,47 @@
         android:id="@+id/ibLeft"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ibUp" />
 
-    <Button
-        android:id="@+id/btnBuzzer"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="44dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Buzzer"
-        android:textAllCaps="false"
+    <ImageButton
+        android:id="@+id/ibBuzzer"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/sound"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnConnect" />
 
-    <Button
-        android:id="@+id/btnLeds"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Led's"
+    <ImageButton
+        android:id="@+id/ibLeds"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/litght"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnDisconnect" />
 
-    <Button
-        android:id="@+id/btnStop"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Stop"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibDown"
-        app:layout_constraintVertical_bias="1.0" />
+    <ImageButton
+        android:id="@+id/ibStop"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/stop"
+        app:layout_constraintBottom_toTopOf="@+id/ibDown"
+        app:layout_constraintEnd_toStartOf="@+id/ibRight"
+        app:layout_constraintHorizontal_bias="0.593"
+        app:layout_constraintStart_toEndOf="@+id/ibLeft"
+        app:layout_constraintTop_toBottomOf="@+id/ibUp"
+        app:layout_constraintVertical_bias="0.519" />
 
 </android.support.constraint.ConstraintLayout>

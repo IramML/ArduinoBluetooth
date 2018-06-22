@@ -34,17 +34,17 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     boolean deviceConnected=false;
     int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    Button btnConnect, btnDisconnect, btnBuzzer, btnLeds, btnStop;
-    ImageView ibUp, ibLeft, ibRight, ibDown;
+    Button btnConnect, btnDisconnect;
+    ImageView ibUp, ibLeft, ibRight, ibDown, ibBuzzer, ibLeds, ibStop;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
         btnConnect=findViewById(R.id.btnConnect);
         btnDisconnect=findViewById(R.id.btnDisconnect);
-        btnBuzzer=findViewById(R.id.btnBuzzer);
-        btnLeds=findViewById(R.id.btnLeds);
-        btnStop=findViewById(R.id.btnStop);
+        ibBuzzer=findViewById(R.id.ibBuzzer);
+        ibLeds=findViewById(R.id.ibLeds);
+        ibStop=findViewById(R.id.ibStop);
         ibUp=findViewById(R.id.ibUp);
         ibDown=findViewById(R.id.ibDown);
         ibLeft=findViewById(R.id.ibLeft);
@@ -53,26 +53,13 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
 
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
-            Toast.makeText(this, "El dispositivo no soporta bluetooth", Toast.LENGTH_SHORT).show();
-        }
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableBtIntent, REQUEST_ENABLE_BT);
-        }
-        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-        // If there are paired devices
-        if (pairedDevices.size() > 0) {
-            // Loop through paired devices
-            for (BluetoothDevice device : pairedDevices) {
-                // Add the name and address to an array adapter to show in a ListView
-                Log.d("DEVICES BLUETOOTH",device.getName() + "\n" + device.getAddress());
-            }
+            Toast.makeText(this, "The devicie doesn't support bluetooth", Toast.LENGTH_SHORT).show();
         }
         btnConnect.setOnClickListener(this);
         btnDisconnect.setOnClickListener(this);
-        btnBuzzer.setOnClickListener(this);
-        btnLeds.setOnClickListener(this);
-        btnStop.setOnClickListener(this);
+        ibBuzzer.setOnClickListener(this);
+        ibLeds.setOnClickListener(this);
+        ibStop.setOnClickListener(this);
         ibUp.setOnClickListener(this);
         ibLeft.setOnClickListener(this);
         ibRight.setOnClickListener(this);
@@ -128,7 +115,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
                     e.printStackTrace();
                 }
                 break;
-            case R.id.btnStop:
+            case R.id.ibStop:
                 message= "c";
                 try {
                     outputStream.write(message.getBytes());
@@ -152,7 +139,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
                     e.printStackTrace();
                 }
                 break;
-            case R.id.btnBuzzer:
+            case R.id.ibBuzzer:
                 if (statusBuzzer){
                     message= "z";
                 }else {
@@ -165,7 +152,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
                     e.printStackTrace();
                 }
                 break;
-            case R.id.btnLeds:
+            case R.id.ibLeds:
                 if (statusBuzzer){
                     message= "w";
                 }else {
