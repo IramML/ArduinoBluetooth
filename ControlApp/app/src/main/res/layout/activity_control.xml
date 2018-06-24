@@ -32,8 +32,8 @@
 
     <ImageButton
         android:id="@+id/ibUp"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="68dp"
@@ -44,8 +44,8 @@
 
     <ImageButton
         android:id="@+id/ibDown"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="35dp"
@@ -59,23 +59,26 @@
     <ImageButton
         android:id="@+id/ibRight"
         android:layout_width="82dp"
-        android:layout_height="80dp"
+        android:layout_height="82dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/right"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.753"
-        app:layout_constraintStart_toEndOf="@+id/ibLeft"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ibStop"
         app:layout_constraintTop_toBottomOf="@+id/ibUp" />
 
     <ImageButton
         android:id="@+id/ibLeft"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="35dp"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
         android:src="@drawable/left"
+        app:layout_constraintEnd_toStartOf="@+id/ibStop"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ibUp" />
 
@@ -107,13 +110,12 @@
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/stop"
         app:layout_constraintBottom_toTopOf="@+id/ibDown"
-        app:layout_constraintEnd_toStartOf="@+id/ibRight"
-        app:layout_constraintHorizontal_bias="0.593"
-        app:layout_constraintStart_toEndOf="@+id/ibLeft"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ibUp"
-        app:layout_constraintVertical_bias="0.519" />
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

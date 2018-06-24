@@ -70,10 +70,8 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnConnect:
-                if(BTinit())
-                {
-                    if(BTconnect())
-                    {
+                if(BTinit()){
+                    if(BTconnect()){
                         deviceConnected=true;
                         beginListenForData();
                     }
@@ -211,16 +209,12 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
             }
         }
         Set<BluetoothDevice> bondedDevices = bluetoothAdapter.getBondedDevices();
-        if(bondedDevices.isEmpty())
-        {
+        if(bondedDevices.isEmpty()) {
             Toast.makeText(getApplicationContext(),"Please Pair the Device first",Toast.LENGTH_SHORT).show();
         }
-        else
-        {
-            for (BluetoothDevice iterator : bondedDevices)
-            {
-                if(iterator.getAddress().equals(DEVICE_ADDRESS))
-                {
+        else{
+            for (BluetoothDevice iterator : bondedDevices){
+                if(iterator.getAddress().equals(DEVICE_ADDRESS)){
                     device=iterator;
                     found=true;
                     break;
@@ -229,22 +223,16 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
         }
         return found;
     }
-    void beginListenForData()
-    {
+    void beginListenForData(){
         final Handler handler = new Handler();
         stopThread = false;
         buffer = new byte[1024];
-        Thread thread  = new Thread(new Runnable()
-        {
-            public void run()
-            {
-                while(!Thread.currentThread().isInterrupted() && !stopThread)
-                {
-                    try
-                    {
+        Thread thread  = new Thread(new Runnable() {
+            public void run() {
+                while(!Thread.currentThread().isInterrupted() && !stopThread) {
+                    try {
                         int byteCount = inputStream.available();
-                        if(byteCount > 0)
-                        {
+                        if(byteCount > 0){
                             byte[] rawBytes = new byte[byteCount];
                             inputStream.read(rawBytes);
                             final String string=new String(rawBytes,"UTF-8");
@@ -256,8 +244,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
 
                         }
                     }
-                    catch (IOException ex)
-                    {
+                    catch (IOException ex){
                         stopThread = true;
                     }
                 }
