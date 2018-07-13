@@ -6,29 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".ControlActivity">
 
-    <Button
-        android:id="@+id/btnConnect"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:id="@+id/ibConnect"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
+        android:background="@color/colorAccent"
+        android:src="@drawable/connect"
         android:text="Connect"
         android:textAllCaps="false"
+        app:layout_constraintEnd_toStartOf="@+id/ibLeds"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnDisconnect"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Disconnect"
-        android:textAllCaps="false"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/ibUp"
@@ -36,11 +29,11 @@
         android:layout_height="82dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="76dp"
         android:src="@drawable/up"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibBuzzer" />
+        app:layout_constraintTop_toBottomOf="@+id/ibLeds" />
 
     <ImageButton
         android:id="@+id/ibDown"
@@ -62,7 +55,7 @@
         android:layout_height="82dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="35dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/right"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -75,7 +68,7 @@
         android:layout_height="82dp"
         android:layout_marginEnd="35dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="35dp"
         android:src="@drawable/left"
         app:layout_constraintEnd_toStartOf="@+id/ibStop"
         app:layout_constraintHorizontal_bias="1.0"
@@ -86,22 +79,26 @@
         android:id="@+id/ibBuzzer"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/sound"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnConnect" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ibLeds"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/ibLeds"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="24dp"
         android:src="@drawable/litght"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDisconnect" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/ibStop"

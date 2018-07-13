@@ -4,12 +4,11 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -34,14 +33,12 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     boolean deviceConnected=false;
     int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-    Button btnConnect, btnDisconnect;
-    ImageView ibUp, ibLeft, ibRight, ibDown, ibBuzzer, ibLeds, ibStop;
+    ImageView ibUp, ibLeft, ibRight, ibDown, ibBuzzer, ibLeds, ibStop, ibConnect;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
-        btnConnect=findViewById(R.id.btnConnect);
-        btnDisconnect=findViewById(R.id.btnDisconnect);
+        ibConnect=findViewById(R.id.ibConnect);
         ibBuzzer=findViewById(R.id.ibBuzzer);
         ibLeds=findViewById(R.id.ibLeds);
         ibStop=findViewById(R.id.ibStop);
@@ -55,8 +52,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
             // Device does not support Bluetooth
             Toast.makeText(this, "The devicie doesn't support bluetooth", Toast.LENGTH_SHORT).show();
         }
-        btnConnect.setOnClickListener(this);
-        btnDisconnect.setOnClickListener(this);
+        ibConnect.setOnClickListener(this);
         ibBuzzer.setOnClickListener(this);
         ibLeds.setOnClickListener(this);
         ibStop.setOnClickListener(this);
@@ -68,34 +64,38 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btnConnect:
-                if(BTinit()){
-                    if(BTconnect()){
-                        deviceConnected=true;
-                        beginListenForData();
+        switch (view.getId()) {
+            case R.id.ibConnect:
+                if (deviceConnected) {
+                    stopThread = true;
+                    try {
+                        outputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
-
+                    try {
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        socket.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    deviceConnected = false;
+                    ibConnect.setImageResource(R.drawable.connect);
+                    ibConnect.setBackgroundResource(R.color.colorAccent);
+                }else{
+                    if (BTinit()){
+                        if (BTconnect()) {
+                            deviceConnected = true;
+                            beginListenForData();
+                            ibConnect.setImageResource(R.drawable.disconnect);
+                            ibConnect.setBackgroundColor(Color.RED);
+                        }
+                    }
                 }
-                break;
-            case R.id.btnDisconnect:
-                stopThread = true;
-                try {
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                try {
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                deviceConnected=false;
                 break;
             case R.id.ibUp:
                 message="a";
@@ -151,7 +151,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
                 }
                 break;
             case R.id.ibLeds:
-                if (statusBuzzer){
+                if (statusLed){
                     message= "w";
                 }else {
                     message = "q";
@@ -165,18 +165,16 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
                 break;
         }
     }
-    public boolean BTconnect()
-    {
+    public boolean BTconnect(){
         boolean connected=true;
-        try {
+        try{
             socket = device.createRfcommSocketToServiceRecord(PORT_UUID);
             socket.connect();
         } catch (IOException e) {
             e.printStackTrace();
             connected=false;
         }
-        if(connected)
-        {
+        if(connected){
             try {
                 outputStream=socket.getOutputStream();
             } catch (IOException e) {
@@ -191,15 +189,13 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
         }
         return connected;
     }
-    public boolean BTinit()
-    {
+    public boolean BTinit() {
         boolean found=false;
         BluetoothAdapter bluetoothAdapter=BluetoothAdapter.getDefaultAdapter();
         if (bluetoothAdapter == null) {
             Toast.makeText(getApplicationContext(),"Device doesnt Support Bluetooth",Toast.LENGTH_SHORT).show();
         }
-        if(!bluetoothAdapter.isEnabled())
-        {
+        if(!bluetoothAdapter.isEnabled()) {
             Intent enableAdapter = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableAdapter, 0);
             try {
@@ -236,9 +232,8 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
                             byte[] rawBytes = new byte[byteCount];
                             inputStream.read(rawBytes);
                             final String string=new String(rawBytes,"UTF-8");
-                            handler.post(new Runnable() {
-                                public void run()
-                                {
+                            handler.post(new Runnable(){
+                                public void run(){
                                 }
                             });
 
