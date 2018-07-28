@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,7 +28,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     private InputStream inputStream;
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     //Adress of bluetooth module
-    private String DEVICE_ADDRESS="AB:60:51:57:34:02";
+    public static String DEVICE_ADDRESS="";
     String message;
     byte buffer[];
     boolean stopThread;
@@ -34,6 +36,8 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     int REQUEST_ENABLE_BT = 1;
     BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     ImageView ibUp, ibLeft, ibRight, ibDown, ibBuzzer, ibLeds, ibStop, ibConnect;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
         if (mBluetoothAdapter == null) {
             // Device does not support Bluetooth
             Toast.makeText(this, "The devicie doesn't support bluetooth", Toast.LENGTH_SHORT).show();
+            finish();
         }
         ibConnect.setOnClickListener(this);
         ibBuzzer.setOnClickListener(this);
@@ -66,36 +71,43 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ibConnect:
-                if (deviceConnected) {
-                    stopThread = true;
-                    try {
-                        outputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        inputStream.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    try {
-                        socket.close();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    deviceConnected = false;
-                    ibConnect.setImageResource(R.drawable.connect);
-                    ibConnect.setBackgroundResource(R.color.colorAccent);
-                }else{
-                    if (BTinit()){
-                        if (BTconnect()) {
-                            deviceConnected = true;
-                            beginListenForData();
-                            ibConnect.setImageResource(R.drawable.disconnect);
-                            ibConnect.setBackgroundColor(Color.RED);
+                if (DEVICE_ADDRESS!=""){
+                    if (deviceConnected) {
+                        stopThread = true;
+                        try {
+                            outputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            inputStream.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            socket.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        deviceConnected = false;
+                        ibConnect.setImageResource(R.drawable.connect);
+                        ibConnect.setBackgroundResource(R.color.colorAccent);
+                    }else{
+                        if (BTinit()){
+                            if (BTconnect()) {
+                                deviceConnected = true;
+                                beginListenForData();
+                                ibConnect.setImageResource(R.drawable.disconnect);
+                                ibConnect.setBackgroundColor(Color.RED);
+                            }
                         }
                     }
+                }else{
+                    Toast.makeText(getApplicationContext(), "Select a device", Toast.LENGTH_SHORT).show();
+                    Intent intent=new Intent(this, PairedDevices.class);
+                    startActivity(intent);
                 }
+
                 break;
             case R.id.ibUp:
                 message="a";
