@@ -28,7 +28,7 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     private InputStream inputStream;
     private final UUID PORT_UUID = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
     //Adress of bluetooth module
-    public static String DEVICE_ADDRESS="";
+    public static String DEVICE_ADDRESS;
     String message;
     byte buffer[];
     boolean stopThread;
@@ -68,113 +68,94 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.ibConnect:
-                if (DEVICE_ADDRESS!=""){
-                    if (deviceConnected) {
-                        stopThread = true;
-                        try {
-                            outputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            inputStream.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            socket.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        deviceConnected = false;
-                        ibConnect.setImageResource(R.drawable.connect);
-                        ibConnect.setBackgroundResource(R.color.colorAccent);
-                    }else{
-                        if (BTinit()){
-                            if (BTconnect()) {
-                                deviceConnected = true;
-                                beginListenForData();
-                                ibConnect.setImageResource(R.drawable.disconnect);
-                                ibConnect.setBackgroundColor(Color.RED);
-                            }
-                        }
-                    }
-                }else{
-                    Toast.makeText(getApplicationContext(), "Select a device", Toast.LENGTH_SHORT).show();
-                    Intent intent=new Intent(this, PairedDevices.class);
-                    startActivity(intent);
-                }
+    protected void onResume() {
+        super.onResume();
+        connectDisconnect();
+    }
 
-                break;
-            case R.id.ibUp:
-                message="a";
-                try {
-                    outputStream.write(message.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.ibRight:
-                message= "b";
-                try {
-                    outputStream.write(message.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.ibStop:
-                message= "c";
-                try {
-                    outputStream.write(message.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.ibLeft:
-                message= "d";
-                try {
-                    outputStream.write(message.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.ibDown:
-                message= "e";
-                try {
-                    outputStream.write(message.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.ibBuzzer:
-                if (statusBuzzer){
-                    message= "z";
-                }else {
-                    message = "p";
-                }
-                statusBuzzer=!statusBuzzer;
-                try {
-                    outputStream.write(message.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.ibLeds:
-                if (statusLed){
-                    message= "w";
-                }else {
-                    message = "q";
-                }
-                statusLed=!statusLed;
-                try {
-                    outputStream.write(message.getBytes());
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                break;
+    @Override
+    public void onClick(View view) {
+        if(view.getId()==R.id.ibConnect){
+            if (DEVICE_ADDRESS != "" && DEVICE_ADDRESS!=null) {
+                connectDisconnect();
+            } else {
+                Toast.makeText(getApplicationContext(), "Select a device", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, PairedDevices.class);
+                startActivity(intent);
+            }
+
+        }
+        if (deviceConnected) {
+            switch (view.getId()) {
+                case R.id.ibUp:
+                    message = "a";
+                    try {
+                        outputStream.write(message.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibRight:
+                    message = "b";
+                    try {
+                        outputStream.write(message.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibStop:
+                    message = "c";
+                    try {
+                        outputStream.write(message.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibLeft:
+                    message = "d";
+                    try {
+                        outputStream.write(message.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibDown:
+                    message = "e";
+                    try {
+                        outputStream.write(message.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibBuzzer:
+                    if (statusBuzzer) {
+                        message = "z";
+                    } else {
+                        message = "p";
+                    }
+                    statusBuzzer = !statusBuzzer;
+                    try {
+                        outputStream.write(message.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+                case R.id.ibLeds:
+                    if (statusLed) {
+                        message = "w";
+                    } else {
+                        message = "q";
+                    }
+                    statusLed = !statusLed;
+                    try {
+                        outputStream.write(message.getBytes());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    break;
+            }
+        }else{
+            Toast.makeText(getApplicationContext(), "First connect the bluetooth", Toast.LENGTH_SHORT).show();
         }
     }
     public boolean BTconnect(){
@@ -259,5 +240,43 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
         });
 
         thread.start();
+    }
+    public void connectDisconnect(){
+        if (DEVICE_ADDRESS!="" && DEVICE_ADDRESS!=null) {
+            if (deviceConnected) {
+                stopThread = true;
+                try {
+                    outputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    socket.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                deviceConnected = false;
+                ibConnect.setImageResource(R.drawable.connect);
+                ibConnect.setBackgroundResource(R.color.colorAccent);
+                if (!deviceConnected) Toast.makeText(getApplicationContext(), "Disconnected", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getApplicationContext(), "The device could not disconnect", Toast.LENGTH_SHORT).show();
+            } else {
+                if (BTinit()) {
+                    if (BTconnect()) {
+                        deviceConnected = true;
+                        beginListenForData();
+                        ibConnect.setImageResource(R.drawable.disconnect);
+                        ibConnect.setBackgroundColor(Color.RED);
+                    }
+                }
+                if (deviceConnected) Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+                else Toast.makeText(getApplicationContext(), "The device could not connect", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

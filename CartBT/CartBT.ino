@@ -24,7 +24,6 @@ void loop() {
 void commands(){
   if(Serial.available()>0){ 
     statusBT = Serial.read();
-    delay(2);
   }
   switch(statusBT){
     //generate sound
