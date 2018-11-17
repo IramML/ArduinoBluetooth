@@ -2,4 +2,4 @@
 
 ## Circuit
 
-![Circuit](https://github.com/IramML/ArduinoSongs/blob/master/Circuit/Circuit.png)
+![Circuit](https://github.com/IramML/ArduinoSongs/blob/master/Songs/Circuit/Circuit.png)

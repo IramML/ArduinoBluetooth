@@ -8,7 +8,7 @@
 #define ledPin5 8
 #define ledPin6 7
 
-char statusBT = "";
+char statusBT = ' ';
  
 void setup(void){
   Serial.begin(9600); //speed for serial communication to 9600 baud
@@ -25,9 +25,15 @@ void loop(){
     statusBT = Serial.read();
   }
   switch(statusBT){
-    //play mario bros theme
+    //play Mario Bros Theme
     case 'a':                 
       playMarioBrosTheme();
+      break;
+    //play Star Wars Theme
+    case 'b':                 
+      playStarWarsTheme();
+      break;
+    default :
       break;
   }
 }
@@ -269,14 +275,12 @@ void playStarWarsTheme(){
   delay(650);
 }
 
-void beep(int note, int duration)
-{
+void beep(int note, int duration){
   //Play tone on buzzerPin
   tone(buzzerPin, note, duration);
  
   //Play different LED depending on value of 'counter'
-  if(counter % 2 == 0)
-  {
+  if(counter % 2 == 0){
     digitalWrite(ledPin1, HIGH);
     delay(duration);
     digitalWrite(ledPin1, LOW);
@@ -296,8 +300,7 @@ void beep(int note, int duration)
   counter++;
 }
  
-void firstSection()
-{
+void firstSection(){
   beep(a, 500);
   beep(a, 500);    
   beep(a, 500);
