@@ -33,6 +33,10 @@ void loop(){
     case 'b':                 
       playStarWarsTheme();
       break;
+    //play Star Wars Theme
+    case 'c':                 
+      GameOfThrones();
+      break;
     default :
       break;
   }
@@ -351,3 +355,333 @@ void secondSection()
   delay(350);
 }
 //end star wars theme
+
+//begin Game Of Thrones Theme 
+void ilumina(int note){
+  if(note == NOTE_G4 || note == NOTE_G3 || note == NOTE_GS3) {
+   digitalWrite(ledPin1, HIGH);
+  } else if (note == NOTE_C4) {
+    digitalWrite(ledPin2, HIGH);
+  } else if(note == NOTE_AS3) {
+    digitalWrite(ledPin3, HIGH);
+  } else if (note == NOTE_DS4) {
+    digitalWrite(ledPin4, HIGH);
+  }else if (note == NOTE_F3) {
+    digitalWrite(ledPin5, HIGH);
+  } else if(note == NOTE_E4) {
+    digitalWrite(ledPin6, HIGH);
+  }
+}
+
+void apaga(int note){
+  if(note == NOTE_G4 || note == NOTE_G3 || note == NOTE_GS3) {
+   digitalWrite(ledPin1, LOW);
+  } else if (note == NOTE_C4) {
+    digitalWrite(ledPin2, LOW);
+  } else if(note == NOTE_AS3) {
+    digitalWrite(ledPin3, LOW);
+  } else if (note == NOTE_DS4) {
+    digitalWrite(ledPin4, LOW);
+  }  else if (note == NOTE_F3) {
+    digitalWrite(ledPin5, LOW);
+  } else if(note == NOTE_E4) {
+    digitalWrite(ledPin6, LOW);
+  }
+}
+
+void GameOfThrones() {
+  for(int i=0; i<4; i++) {
+    tone(buzzerPin, NOTE_G4);
+    ilumina(NOTE_G4);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_G4);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_C4);
+
+    tone(buzzerPin, NOTE_DS4);
+    ilumina(NOTE_DS4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_DS4);
+
+    tone(buzzerPin, NOTE_F4);
+    ilumina(NOTE_F4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_F4);
+  }
+
+  for(int i=0; i<4; i++){
+    tone(buzzerPin, NOTE_G4);
+    ilumina(NOTE_G4);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_G4);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_C4);
+
+    tone(buzzerPin, NOTE_E4);
+    ilumina(NOTE_E4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_E4);
+
+    tone(buzzerPin, NOTE_F4);
+    ilumina(NOTE_F4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_F4);
+  }
+
+    tone(buzzerPin, NOTE_G4);
+    ilumina(NOTE_G4);
+    delay(1500);
+    noTone(buzzerPin);
+    apaga(NOTE_G4);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(1500);
+    apaga(NOTE_C4);
+
+//
+    tone(buzzerPin, NOTE_E4);
+    ilumina(NOTE_E4);
+    delay(250);
+    apaga(NOTE_C4);
+
+    tone(buzzerPin, NOTE_F4);
+    ilumina(NOTE_F4);
+    delay(250);
+    apaga(NOTE_C4);
+//
+    tone(buzzerPin, NOTE_G4);
+    ilumina(NOTE_G4);
+    delay(1000);
+    noTone(buzzerPin);
+    apaga(NOTE_G4);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(1000);
+    apaga(NOTE_C4);
+
+    tone(buzzerPin, NOTE_DS4);
+    ilumina(NOTE_DS4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_DS4);
+
+    tone(buzzerPin, NOTE_F4);
+    ilumina(NOTE_F4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_F4);
+    
+  for(int i=0; i<3; i++) {
+    
+    tone(buzzerPin, NOTE_D4);
+    ilumina(NOTE_D4);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_D4);
+    
+    tone(buzzerPin, NOTE_G3);
+    ilumina(NOTE_G3);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_G3);
+
+    tone(buzzerPin, NOTE_AS3);
+    ilumina(NOTE_AS3);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_AS3);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_C4);
+    
+    
+  }
+  
+
+
+      tone(buzzerPin, NOTE_D4);
+      ilumina(NOTE_D4);
+      delay(1500);
+      noTone(buzzerPin);
+      apaga(NOTE_D4);
+      
+      tone(buzzerPin, NOTE_F4);
+      ilumina(NOTE_F4);
+      delay(1500);
+      noTone(buzzerPin);
+      apaga(NOTE_F4);
+
+      tone(buzzerPin, NOTE_AS3);
+      ilumina(NOTE_AS3);
+      delay(1000);
+      noTone(buzzerPin);
+      apaga(NOTE_AS3);
+
+      tone(buzzerPin, NOTE_DS4);
+      ilumina(NOTE_DS4);
+      delay(250);
+      noTone(buzzerPin);
+      apaga(NOTE_DS4);
+
+      tone(buzzerPin, NOTE_D4);
+      ilumina(NOTE_D4);
+      delay(250);
+      noTone(buzzerPin);
+      apaga(NOTE_D4);
+
+      tone(buzzerPin, NOTE_F4);
+      ilumina(NOTE_F4);
+      delay(1000);
+      noTone(buzzerPin);
+      apaga(NOTE_F4);
+
+      tone(buzzerPin, NOTE_AS3);
+      ilumina(NOTE_AS3);
+      delay(1000);
+      noTone(buzzerPin);
+      apaga(NOTE_AS3);
+
+      tone(buzzerPin, NOTE_DS4);
+      ilumina(NOTE_DS4);
+      delay(250);
+      noTone(buzzerPin);
+      apaga(NOTE_DS4);
+
+      tone(buzzerPin, NOTE_D4);
+      ilumina(NOTE_D4);
+      delay(250);
+      noTone(buzzerPin);
+      apaga(NOTE_D4);
+
+      tone(buzzerPin, NOTE_C4);
+      ilumina(NOTE_C4);
+      delay(500);
+      noTone(buzzerPin);
+      apaga(NOTE_C4);
+
+  for(int i=0; i<3; i++) {
+      tone(buzzerPin, NOTE_GS3);
+      ilumina(NOTE_GS3);
+      delay(250);
+      noTone(buzzerPin);
+      apaga(NOTE_GS3);
+
+      tone(buzzerPin, NOTE_AS3);
+      ilumina(NOTE_AS3);
+      delay(250);
+      noTone(buzzerPin);
+      apaga(NOTE_AS3);
+
+      tone(buzzerPin, NOTE_C4);
+      ilumina(NOTE_C4);
+      delay(500);
+      noTone(buzzerPin);
+      apaga(NOTE_C4);
+
+      tone(buzzerPin, NOTE_F3);
+      ilumina(NOTE_F3);
+      delay(500);
+      noTone(buzzerPin);
+      apaga(NOTE_F3);
+  }
+
+    tone(buzzerPin, NOTE_G4);
+    ilumina(NOTE_G4);
+    delay(1000);
+    noTone(buzzerPin);
+    apaga(NOTE_G4);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(1000);
+    noTone(buzzerPin);
+    apaga(NOTE_C4);
+
+    tone(buzzerPin, NOTE_DS4);
+    ilumina(NOTE_DS4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_DS4);
+
+    tone(buzzerPin, NOTE_F4);
+    ilumina(NOTE_F4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_F4);
+
+    tone(buzzerPin, NOTE_G4);
+    ilumina(NOTE_G4);
+    delay(1000);
+    noTone(buzzerPin);
+    apaga(NOTE_G4);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(1000);
+    noTone(buzzerPin);
+    apaga(NOTE_C4);
+
+    tone(buzzerPin, NOTE_DS4);
+    ilumina(NOTE_DS4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_DS4);
+
+    tone(buzzerPin, NOTE_F4);
+    ilumina(NOTE_F4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_F4);
+
+    tone(buzzerPin, NOTE_D4);
+    ilumina(NOTE_D4);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_D4);
+
+  for(int i=0; i<4; i++) {
+    tone(buzzerPin, NOTE_G3);
+    ilumina(NOTE_G3);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_G3);
+
+    tone(buzzerPin, NOTE_AS3);
+    ilumina(NOTE_AS3);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_AS3);
+
+    tone(buzzerPin, NOTE_C4);
+    ilumina(NOTE_C4);
+    delay(250);
+    noTone(buzzerPin);
+    apaga(NOTE_C4);
+
+    tone(buzzerPin, NOTE_D4);
+    ilumina(NOTE_D4);
+    delay(500);
+    noTone(buzzerPin);
+    apaga(NOTE_D4);
+  }
+}
+// end Game Of Thrones Theme
