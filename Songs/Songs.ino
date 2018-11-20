@@ -1,5 +1,5 @@
 #include "pitches.h"
- 
+
 #define buzzerPin 13
 #define ledPin1 12
 #define ledPin2 11
@@ -7,6 +7,8 @@
 #define ledPin4 9
 #define ledPin5 8
 #define ledPin6 7
+
+
 
 char statusBT = ' ';
  
@@ -26,7 +28,7 @@ void loop(){
   }
   switch(statusBT){
     //play Mario Bros Theme
-    case 'a':                 
+    case 'a':               
       playMarioBrosTheme();
       break;
     //play Star Wars Theme
@@ -36,6 +38,14 @@ void loop(){
     //play Star Wars Theme
     case 'c':                 
       GameOfThrones();
+      break;
+    //play Zelda Theme
+    case 'd':                 
+      playZeldaTheme();
+      break;
+    //play Doctor Who Theme
+    case 'e':                 
+      playDoctorWhoTheme();
       break;
     default :
       break;
@@ -72,7 +82,6 @@ int melody[] = {
   0, NOTE_E7, 0, NOTE_C7,
   NOTE_D7, NOTE_B6, 0, 0
 };
-
 //Mario main them tempo
 int tempo[] = {
   12, 12, 12, 12,
@@ -685,3 +694,160 @@ void GameOfThrones() {
   }
 }
 // end Game Of Thrones Theme
+//begin Zelda Theme
+void playZeldaTheme(){
+  tone(13,277,200);  delay(200);
+  tone(13,349,200);  delay(200);
+  tone(13,370,200);  delay(400);
+  
+  tone(13,277,200);  delay(200);
+  tone(13,349,200);  delay(200);
+  tone(13,370,200);  delay(400);
+
+  tone(13,277,200);  delay(200);
+  tone(13,349,200);  delay(200);
+  tone(13,370,200);  delay(200);
+  tone(13,523,200);  delay(200);
+  tone(13,440,200);  delay(400);
+
+  tone(13,370,200);  delay(200);
+  tone(13,330,200);  delay(200);
+  tone(13,370,200);  delay(200);
+  tone(13,311,200);  delay(200);
+  tone(13,261,200);  delay(600);
+  
+  tone(13,440,200);  delay(200);
+  tone(13,261,200);  delay(200);
+  tone(13,311,200);  delay(200);
+  tone(13,261,200);  delay(800);  
+int tones[] = {261, 277, 294, 311, 330, 349, 370, 392, 415, 440 , 493, 523};
+//            mid C  C#   D    D#   E    F    F#   G    G#   A  ,  B ,  C    */
+}
+//end Zelda Theme
+//begin Doctor Who Theme
+// notes in the melody:
+int melodyDoctorWho[] = {
+  NOTE_E2, 0, NOTE_E2, NOTE_E2, 
+  NOTE_E2, NOTE_E2, 0, NOTE_E2, 
+  NOTE_E2, NOTE_E2, NOTE_E2, 0, 
+  NOTE_E2, NOTE_E2, NOTE_E2, NOTE_C2, 
+  0, NOTE_E2, 0, NOTE_E2, 
+  0, NOTE_E2, NOTE_E2, NOTE_E2, 
+  NOTE_E2, 0, NOTE_E2, NOTE_E2, 
+  NOTE_E2, NOTE_E2, 0, NOTE_E2, 
+  NOTE_E2, NOTE_E2, NOTE_C2, 0,
+  NOTE_B3, NOTE_C5, NOTE_B4, 0,
+  NOTE_D5, NOTE_A3, NOTE_B2, 0,
+  NOTE_D5, NOTE_C5, NOTE_B4, 0,
+  NOTE_D5, NOTE_C5, NOTE_B4, 0,
+  NOTE_B3, NOTE_C5, NOTE_B4, 0  
+};
+
+// note durations: 4 = quarter note, 8 = eighth note, etc.:
+int noteDurations[] = {
+  4, 4, 8, 8, 
+  8, 8, 4, 8, 
+  8, 8, 8, 4, 
+  8, 8, 8, 2, 
+  4, 4, 4, 4, 
+  8, 8, 8, 8, 
+  4, 8, 8, 8, 
+  8, 4, 8, 8, 
+  8, 2, 4, 4, 
+  4, 4, 1, 2,
+  2, 4, 1, 1,
+  4, 4, 2, 4,
+  2, 4, 4, 2,
+  4, 4, 1, 2,
+};
+void playDoctorWhoTheme(){
+    // iterate over the notes of the melody:
+  //integers arrays are two bytes so divide by 2
+    for (int thisNote = 0; thisNote < sizeof(melodyDoctorWho)/2; thisNote++) {  
+    // to calculate the note duration, take one second 
+    // divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    int noteDuration = 1000/noteDurations[thisNote];
+    tone(13, melodyDoctorWho[thisNote],noteDuration);
+
+    // to distinguish the notes, set a minimum time between them.
+    // the note's duration + 30% seems to work well:
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+    // stop the tone playing:
+    noTone(13);
+  }
+}
+//end Doctor Who Theme
+
+//begin Sweet child o mine
+//Sweet Child O Mine - Guns N Roses-------------------------------------------------------------------------------------------------------------------------------
+// Notes
+int mainRiffD[] = {NOTE_D4 , NOTE_D5 , NOTE_A4, NOTE_G4, NOTE_G5, NOTE_A4, NOTE_FS5, NOTE_A4};
+int mainRiffE[] = {NOTE_E4 , NOTE_D5 , NOTE_A4, NOTE_G4, NOTE_G5, NOTE_A4, NOTE_FS5, NOTE_A4};
+int mainRiffG[] = {NOTE_G4 , NOTE_D5 , NOTE_A4, NOTE_G4, NOTE_G5, NOTE_A4, NOTE_FS5, NOTE_A4};
+
+#define led7 6
+#define led8 5
+
+int mainRiffDurations[] = {
+//d4  d5  a4   g4  g5  g4  fs5  a4  
+  6,  6,  6,   6,  6,  6,  6 ,  6};
+
+int mainRiffLeds[] = {ledPin1, ledPin2, ledPin3, ledPin4, ledPin5, ledPin6, led7, led8};
+
+//----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+void playSweetChildOMine () {
+  for(int introTwoTimes = 0; introTwoTimes < 2; introTwoTimes++){
+    for(int dTwice = 0; dTwice < 2; dTwice++){
+      for (int thisNote = 0; thisNote < 8; thisNote++){
+        int mainRiffDuration = 1000/mainRiffDurations[thisNote];
+        tone(buzzerPin, mainRiffD[thisNote], mainRiffDuration);
+        digitalWrite(mainRiffLeds[thisNote], HIGH);
+        int pauseBetweenNotes = mainRiffDuration * 1.30;
+        delay(pauseBetweenNotes);
+        noTone(buzzerPin);
+        digitalWrite(mainRiffLeds[thisNote], LOW);
+      }
+    }
+    
+    for(int eTwice = 0; eTwice < 2; eTwice++){
+      for (int thisNote = 0; thisNote < 8; thisNote++){
+        int mainRiffDuration = 1000/mainRiffDurations[thisNote];
+        tone(buzzerPin, mainRiffE[thisNote], mainRiffDuration);
+        digitalWrite(mainRiffLeds[thisNote], HIGH);
+        int pauseBetweenNotes = mainRiffDuration * 1.30;
+        delay(pauseBetweenNotes);
+        noTone(buzzerPin);
+        digitalWrite(mainRiffLeds[thisNote], LOW);
+      }
+    }
+    
+    for(int gTwice = 0; gTwice < 2; gTwice++){
+      for (int thisNote = 0; thisNote < 8; thisNote++){
+        int mainRiffDuration = 1000/mainRiffDurations[thisNote];
+        tone(buzzerPin, mainRiffG[thisNote], mainRiffDuration);
+        digitalWrite(mainRiffLeds[thisNote], HIGH);
+        int pauseBetweenNotes = mainRiffDuration * 1.30;
+        delay(pauseBetweenNotes);
+        noTone(buzzerPin);
+        digitalWrite(mainRiffLeds[thisNote], LOW);
+      }
+    }
+    
+    for(int dTwice = 0; dTwice < 2; dTwice++){
+      for (int thisNote = 0; thisNote < 8; thisNote++){
+        int mainRiffDuration = 1000/mainRiffDurations[thisNote];
+        tone(buzzerPin, mainRiffD[thisNote], mainRiffDuration);
+        digitalWrite(mainRiffLeds[thisNote], HIGH);
+        int pauseBetweenNotes = mainRiffDuration * 1.30;
+        delay(pauseBetweenNotes);
+        noTone(buzzerPin);
+        digitalWrite(mainRiffLeds[thisNote], LOW);
+      }
+    }
+  }
+}
+//end Sweet child o mine
