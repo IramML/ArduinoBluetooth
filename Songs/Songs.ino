@@ -23,32 +23,39 @@ void setup(void){
   pinMode(ledPin6, OUTPUT);
 }
 void loop(){
-  if(Serial.available()>0){ 
-    statusBT = Serial.read();
-  }
+  refreshBT();
   switch(statusBT){
     //play Mario Bros Theme
-    case 'a':               
+    case 'a':             
+      //source https://gist.github.com/micdenny/9b2ad8a6fac1f4a7d679087194761ce0  
       playMarioBrosTheme();
       break;
     //play Star Wars Theme
-    case 'b':                 
+    case 'b':                
+      // source https://gist.github.com/nicksort/4736535
       playStarWarsTheme();
       break;
     //play Star Wars Theme
-    case 'c':                 
+    case 'c': 
+      //source https://github.com/AraanBranco/arduino/blob/master/music/Game-of-thrones-song.txt                
       GameOfThrones();
       break;
     //play Zelda Theme
-    case 'd':                 
+    case 'd':   
       playZeldaTheme();
       break;
     //play Doctor Who Theme
-    case 'e':                 
+    case 'e':      
+      //source https://codebender.cc/sketch:109527#Doctor%20Who%20Theme%20Song.ino           
       playDoctorWhoTheme();
       break;
     default :
       break;
+  }
+}
+void refreshBT(){
+  if(Serial.available()>0){ 
+    statusBT = Serial.read();
   }
 }
 int song = 0;
@@ -168,7 +175,8 @@ void sing(int s) {
     Serial.println(" 'Underworld Theme'");
     int size = sizeof(underworld_melody) / sizeof(int);
     for (int thisNote = 0; thisNote < size; thisNote++) {
- 
+      refreshBT();
+      if(statusBT!='a')return;
       // to calculate the note duration, take one second
       // divided by the note type.
       //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
@@ -191,7 +199,8 @@ void sing(int s) {
     Serial.println(" 'Mario Theme'");
     int size = sizeof(melody) / sizeof(int);
     for (int thisNote = 0; thisNote < size; thisNote++) {
- 
+      refreshBT();
+      if(statusBT!='a')return;
       // to calculate the note duration, take one second
       // divided by the note type.
       //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
@@ -289,6 +298,8 @@ void playStarWarsTheme(){
 }
 
 void beep(int note, int duration){
+  refreshBT();
+  if(statusBT!='b')return;
   //Play tone on buzzerPin
   tone(buzzerPin, note, duration);
  
@@ -400,6 +411,8 @@ void apaga(int note){
 
 void GameOfThrones() {
   for(int i=0; i<4; i++) {
+    refreshBT();
+    if(statusBT!='c')return;
     tone(buzzerPin, NOTE_G4);
     ilumina(NOTE_G4);
     delay(500);
@@ -426,6 +439,8 @@ void GameOfThrones() {
   }
 
   for(int i=0; i<4; i++){
+    refreshBT();
+    if(statusBT!='c')return;
     tone(buzzerPin, NOTE_G4);
     ilumina(NOTE_G4);
     delay(500);
@@ -497,7 +512,8 @@ void GameOfThrones() {
     apaga(NOTE_F4);
     
   for(int i=0; i<3; i++) {
-    
+    refreshBT();
+    if(statusBT!='c')return;
     tone(buzzerPin, NOTE_D4);
     ilumina(NOTE_D4);
     delay(500);
@@ -588,6 +604,8 @@ void GameOfThrones() {
       apaga(NOTE_C4);
 
   for(int i=0; i<3; i++) {
+    refreshBT();
+    if(statusBT!='c')return;
       tone(buzzerPin, NOTE_GS3);
       ilumina(NOTE_GS3);
       delay(250);
@@ -668,6 +686,8 @@ void GameOfThrones() {
     apaga(NOTE_D4);
 
   for(int i=0; i<4; i++) {
+    refreshBT();
+    if(statusBT!='c')return;
     tone(buzzerPin, NOTE_G3);
     ilumina(NOTE_G3);
     delay(500);
@@ -703,19 +723,22 @@ void playZeldaTheme(){
   tone(13,277,200);  delay(200);
   tone(13,349,200);  delay(200);
   tone(13,370,200);  delay(400);
-
+  refreshBT();
+  if(statusBT!='d')return;
   tone(13,277,200);  delay(200);
   tone(13,349,200);  delay(200);
   tone(13,370,200);  delay(200);
   tone(13,523,200);  delay(200);
   tone(13,440,200);  delay(400);
-
+  refreshBT();
+  if(statusBT!='d')return;
   tone(13,370,200);  delay(200);
   tone(13,330,200);  delay(200);
   tone(13,370,200);  delay(200);
   tone(13,311,200);  delay(200);
   tone(13,261,200);  delay(600);
-  
+  refreshBT();
+  if(statusBT!='d')return;
   tone(13,440,200);  delay(200);
   tone(13,261,200);  delay(200);
   tone(13,311,200);  delay(200);
@@ -764,6 +787,8 @@ void playDoctorWhoTheme(){
     // iterate over the notes of the melody:
   //integers arrays are two bytes so divide by 2
     for (int thisNote = 0; thisNote < sizeof(melodyDoctorWho)/2; thisNote++) {  
+      refreshBT();
+  if(statusBT!='e')return;
     // to calculate the note duration, take one second 
     // divided by the note type.
     //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
