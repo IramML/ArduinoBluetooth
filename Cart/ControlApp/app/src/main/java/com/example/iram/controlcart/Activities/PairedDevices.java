@@ -1,4 +1,4 @@
-package com.example.iram.controlcart;
+package com.example.iram.controlcart.Activities;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
@@ -11,6 +11,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.iram.controlcart.PairedDevicesAdapter.ClickListener;
+import com.example.iram.controlcart.R;
+import com.example.iram.controlcart.PairedDevicesAdapter.adapterPairedDevices;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -41,7 +46,7 @@ public class PairedDevices extends AppCompatActivity {
         adapter= new adapterPairedDevices(this, listDevices, new ClickListener(){
             @Override
             public void onClick(View view, int index) {
-                ControlActivity.DEVICE_ADDRESS=listDevices.get(index).getAddress();
+                ControlActivity.bluetoothManager.DEVICE_ADDRESS=listDevices.get(index).getAddress();
                 finish();
             }
         });
@@ -64,4 +69,5 @@ public class PairedDevices extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
     }
+
 }

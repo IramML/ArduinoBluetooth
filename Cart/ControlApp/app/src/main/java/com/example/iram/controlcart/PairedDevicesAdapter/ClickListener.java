@@ -1,4 +1,4 @@
-package com.example.iram.controlcart;
+package com.example.iram.controlcart.PairedDevicesAdapter;
 
 import android.view.View;
 
