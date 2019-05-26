@@ -14,77 +14,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/bg_btn_connected"
         android:src="@drawable/connect"
         android:text="Connect"
         android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/ibLeds"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-
-    <ImageButton
-        android:id="@+id/ibUp"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="76dp"
-        android:src="@drawable/up"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibLeds" />
-
-    <ImageButton
-        android:id="@+id/ibDown"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/down"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibRight"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/ibRight"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="35dp"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/right"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/ibStop"
-        app:layout_constraintTop_toBottomOf="@+id/ibUp" />
-
-    <ImageButton
-        android:id="@+id/ibLeft"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/left"
-        app:layout_constraintEnd_toStartOf="@+id/ibStop"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibUp" />
-
-    <ImageButton
-        android:id="@+id/ibBuzzer"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/sound"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ibLeds"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
@@ -95,24 +30,40 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
         android:src="@drawable/litght"
+        android:background="@drawable/bg_btn_control_default"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/ibStop"
-        android:layout_width="82dp"
-        android:layout_height="82dp"
-        android:layout_marginBottom="8dp"
+        android:id="@+id/ibBuzzer"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="35dp"
-        android:src="@drawable/stop"
-        app:layout_constraintBottom_toTopOf="@+id/ibDown"
+        android:layout_marginTop="24dp"
+        android:src="@drawable/sound"
+        android:background="@drawable/bg_btn_control_default"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ibUp"
-        app:layout_constraintVertical_bias="0.0" />
-
+        app:layout_constraintStart_toEndOf="@+id/ibLeds"
+        app:layout_constraintTop_toTopOf="parent" />
+    <io.github.controlwear.virtual.joystick.android.JoystickView
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/joystick"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        custom:JV_backgroundColor="#8DDDF1"
+        custom:JV_borderColor="#2C63DD"
+        custom:JV_borderWidth="4dp"
+        custom:JV_buttonColor="#050F4D"
+        custom:JV_buttonSizeRatio="15%"
+        custom:JV_fixedCenter="false"
+        custom:layout_constraintBottom_toBottomOf="parent"
+        custom:layout_constraintEnd_toEndOf="parent"
+        custom:layout_constraintStart_toStartOf="parent"
+        custom:layout_constraintTop_toBottomOf="@+id/ibLeds" />
 </android.support.constraint.ConstraintLayout>

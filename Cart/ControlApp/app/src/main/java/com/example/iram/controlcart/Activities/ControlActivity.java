@@ -21,24 +21,23 @@ import java.io.OutputStream;
 import java.util.Set;
 import java.util.UUID;
 
+import io.github.controlwear.virtual.joystick.android.JoystickView;
+
 public class ControlActivity extends AppCompatActivity implements View.OnClickListener {
-    boolean statusLed=false, statusBuzzer=false;
+    private boolean statusLed=false, statusBuzzer=false;
     public static BluetoothManager bluetoothManager;
-    ImageView ibUp, ibLeft, ibRight, ibDown, ibBuzzer, ibLeds, ibStop, ibConnect;
+    private ImageView ibBuzzer, ibLeds, ibConnect;
+    private JoystickView joystick;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_control);
+        joystick =findViewById(R.id.joystick);
         ibConnect=findViewById(R.id.ibConnect);
         ibBuzzer=findViewById(R.id.ibBuzzer);
         ibLeds=findViewById(R.id.ibLeds);
-        ibStop=findViewById(R.id.ibStop);
-        ibUp=findViewById(R.id.ibUp);
-        ibDown=findViewById(R.id.ibDown);
-        ibLeft=findViewById(R.id.ibLeft);
-        ibRight=findViewById(R.id.ibRight);
 
         bluetoothManager=new BluetoothManager(this);
         if (bluetoothManager.getmBluetoothAdapter() == null) {
@@ -46,14 +45,36 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(this, "The devicie doesn't support bluetooth", Toast.LENGTH_SHORT).show();
             finish();
         }
+
+        joystick.setOnMoveListener(new JoystickView.OnMoveListener() {
+            @Override
+            public void onMove(int angle, int strength) {
+                if (bluetoothManager.isDeviceConnected()) {
+                    if (strength > 10) {
+                        if ((angle <= 45 && angle >= 0) || (angle >= 315 && angle < 360))
+                            //right
+                            bluetoothManager.sendMessage("b");
+                        else if ((angle <= 135 && angle >= 90) || (angle > 45 && angle <= 89))
+                            //up
+                            bluetoothManager.sendMessage("a");
+                        else if ((angle <= 225 && angle >= 180) || (angle > 135 && angle <= 179))
+                            //left
+                            bluetoothManager.sendMessage("d");
+                        else if ((angle <= 315 && angle >= 270) || (angle > 225 && angle <= 269))
+                            //down
+                            bluetoothManager.sendMessage("e");
+                    } else {
+                        bluetoothManager.sendMessage("c");
+                    }
+                }else{
+                    Toast.makeText(getApplicationContext(), "First connect the bluetooth", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
         ibConnect.setOnClickListener(this);
         ibBuzzer.setOnClickListener(this);
         ibLeds.setOnClickListener(this);
-        ibStop.setOnClickListener(this);
-        ibUp.setOnClickListener(this);
-        ibLeft.setOnClickListener(this);
-        ibRight.setOnClickListener(this);
-        ibDown.setOnClickListener(this);
     }
 
     @Override
@@ -65,19 +86,25 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View view) {
         if(view.getId()==R.id.ibConnect){
-            if (!bluetoothManager.DEVICE_ADDRESS.equals("") && bluetoothManager.DEVICE_ADDRESS!=null) {
-                if(bluetoothManager.isDeviceConnected()){
-                    if(bluetoothManager.connectDisconnect()){
-                        ibConnect.setImageResource(R.drawable.connect);
-                        ibConnect.setBackgroundResource(R.color.colorAccent);
-                        Toast.makeText(getApplicationContext(), "Disconnected", Toast.LENGTH_SHORT).show();
-                    }else Toast.makeText(getApplicationContext(), "The device could not disconnect", Toast.LENGTH_SHORT).show();
+            if (bluetoothManager.DEVICE_ADDRESS!=null) {
+                if(!bluetoothManager.DEVICE_ADDRESS.equals("")){
+                    if(bluetoothManager.isDeviceConnected()){
+                        if(bluetoothManager.connectDisconnect()){
+                            ibConnect.setImageResource(R.drawable.connect);
+                            ibConnect.setBackgroundResource(R.color.colorAccent);
+                            Toast.makeText(getApplicationContext(), "Disconnected", Toast.LENGTH_SHORT).show();
+                        }else Toast.makeText(getApplicationContext(), "The device could not disconnect", Toast.LENGTH_SHORT).show();
+                    }else{
+                        if(bluetoothManager.connectDisconnect()){
+                            ibConnect.setImageResource(R.drawable.disconnect);
+                            ibConnect.setBackgroundColor(Color.RED);
+                            Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
+                        }else Toast.makeText(getApplicationContext(), "The device could not connect", Toast.LENGTH_SHORT).show();
+                    }
                 }else{
-                    if(bluetoothManager.connectDisconnect()){
-                        ibConnect.setImageResource(R.drawable.disconnect);
-                        ibConnect.setBackgroundColor(Color.RED);
-                        Toast.makeText(getApplicationContext(), "Connected", Toast.LENGTH_SHORT).show();
-                    }else Toast.makeText(getApplicationContext(), "The device could not connect", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Select a device", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(this, PairedDevices.class);
+                    startActivity(intent);
                 }
             } else {
                 Toast.makeText(getApplicationContext(), "Select a device", Toast.LENGTH_SHORT).show();
@@ -87,21 +114,6 @@ public class ControlActivity extends AppCompatActivity implements View.OnClickLi
         }
         if (bluetoothManager.isDeviceConnected()) {
             switch (view.getId()) {
-                case R.id.ibUp:
-                    bluetoothManager.sendMessage("a");
-                    break;
-                case R.id.ibRight:
-                    bluetoothManager.sendMessage("b");
-                    break;
-                case R.id.ibStop:
-                    bluetoothManager.sendMessage("c");
-                    break;
-                case R.id.ibLeft:
-                    bluetoothManager.sendMessage("d");
-                    break;
-                case R.id.ibDown:
-                    bluetoothManager.sendMessage("e");
-                    break;
                 case R.id.ibBuzzer:
                     if (statusBuzzer) {
                         bluetoothManager.sendMessage("z");

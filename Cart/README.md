@@ -12,8 +12,11 @@ Robot arduino Bluetooth cart controlled by Android app
 - Switch
 - 2wd robot truck chassis
 ## Connections
-![Connections](https://github.com/IramML/ArduinoBluetooth/blob/master/Cart/Images/Circuit.png)
+![Connections](Images/Circuit.png)
 ## Android application
 |   |   |
 |---|---|
-|![App Android00](https://github.com/IramML/ArduinoBluetooth/blob/master/Cart/Images/Screenshot00.png)|![App Android01](https://github.com/IramML/ArduinoBluetooth/blob/master/Cart/Images/Screenshot01.png)|
+|![App Android00](Images/Screenshot_00.png)|![App Android01](Images/Screenshot01.png)|
+
+## Scheme
+![Scheme](Images/Scheme.png)
